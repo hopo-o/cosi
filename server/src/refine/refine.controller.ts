@@ -5,8 +5,8 @@ import { RefineService } from './refine.service';
 export class RefineController {
   constructor(private refineService: RefineService) {}
 
-  @Get('english')
-  refineEnglish(@Query('text') text: string) {
-    return this.refineService.refineEnglish(text);
+  @Get('chinglish')
+  refineChinglish(@Query('text') text: string) {
+    return this.refineService.refineChinglish(text);
   }
 }

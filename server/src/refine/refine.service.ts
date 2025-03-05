@@ -3,11 +3,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class RefineService {
-  async refineEnglish(text: string) {
-    console.log('🧐 ~ RefineService ~ refineEnglish ~ text:', text);
-
-    // return `[Refined]: ${text}`;
-
+  async refineChinglish(text: string) {
     try {
       const model = new ChatDeepSeek({
         model: 'deepseek-chat',
@@ -16,9 +12,11 @@ export class RefineService {
       const message = await model.invoke([
         [
           'system',
-          `下面我将给出一段英文，你需要理解翻译成中文，并将其改造成更加地道和优雅的英文表述。以下面的形式进行回答：
-          【中文】: xxx
-          【英文】: xxx
+          `下面我将给出一段英文，你需要理解翻译成中文，并将其改造成更加地道和优雅的英文表述。以JSON的格式进行回答，格式如下：
+          {
+            "chinese": "xxx",
+            "english": "xxx"
+          }
           `,
         ],
         ['human', text],

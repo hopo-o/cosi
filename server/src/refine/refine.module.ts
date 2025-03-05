@@ -4,6 +4,6 @@ import { RefineController } from './refine.controller';
 
 @Module({
   providers: [RefineService],
-  controllers: [RefineController]
+  controllers: [RefineController],
 })
 export class RefineModule {}
