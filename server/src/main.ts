@@ -12,8 +12,10 @@ async function bootstrap() {
     credentials: true, // 允许携带凭证
   });
 
+  if (!process.env.DEEPSEEK_API_KEY) {
+    throw new Error('No API key');
+  }
+
   await app.listen(8001);
 }
 bootstrap();
-
-console.log('DEEPSEEK_API_KEY: ', process.env.DEEPSEEK_API_KEY);

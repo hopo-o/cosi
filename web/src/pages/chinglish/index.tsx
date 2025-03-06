@@ -1,3 +1,4 @@
+import { useLockFn } from "ahooks";
 import { Button, Divider, Flex, Input, message, Spin, Typography } from "antd";
 import axios from "axios";
 import { useState } from "react";
@@ -14,7 +15,7 @@ export function ChinglishPage() {
 
   const ready = refineData || loading;
 
-  const onSearch = async () => {
+  const onSearch = useLockFn(async () => {
     setLoading(true);
 
     try {
@@ -30,6 +31,12 @@ export function ChinglishPage() {
       message.error("fetch error");
     } finally {
       setLoading(false);
+    }
+  });
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      onSearch();
     }
   };
 
@@ -47,6 +54,7 @@ export function ChinglishPage() {
         value={text}
         size="large"
         onChange={onChange}
+        onKeyDown={onKeyDown}
       />
 
       <Button
